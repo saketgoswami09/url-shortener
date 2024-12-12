@@ -1,48 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <style>
-      body {
-        font-family: gilroy;
-      }
-    </style>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>URL Shortner</h1>
-    <% if (locals.id) { %>
-      <p> URL Genrated : https://localhost:8001/url/<%= id %></p>    
-    <% } %>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>URL Shortener</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'gilroy', sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #007BFF;
+      margin-bottom: 20px;
+    }
+
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    p {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #555;
+    }
+
+    table {
+      width: 100%;
+      max-width: 800px;
+      margin-top: 20px;
+      border-collapse: collapse;
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    thead {
+      background: #007BFF;
+      color: #fff;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      font-weight: bold;
+    }
+
+    tbody tr:hover {
+      background: #f1f1f1;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>URL Shortener</h1>
+  <% if (locals.id) { %>
+    <p>URL Generated: <a href="https://localhost:8001/url/<%= id %>">https://localhost:8001/url/<%= id %></a></p>
+  <% } %>
+  <div>
+    <form method="POST" action="/url">
+      <label for="">Enter your original URL</label>
+      <input type="text" name="url" placeholder="https://example.com" />
+      <button type="submit">Generate</button>
+    </form>
     <div>
-      <form method="POST" action="/url">
-        <label for="">Enter your orignal url</label>
-        <input type="text" name="url" placeholder="https://example.com" />
-        <button type="submit">genreate</button>
-      </form>
-      <div>
-        <% if (locals.urls) { %>
-         <table>
+      <% if (locals.urls) { %>
+        <table>
           <thead>
-            <th>S.No</th>
-            <th>ShortId</th>
-            <th>Redirect</th>
-            <th>Clicks</th>
+            <tr>
+              <th>S.No</th>
+              <th>Short ID</th>
+              <th>Redirect</th>
+              <th>Clicks</th>
+            </tr>
           </thead>
           <tbody>
             <% urls.forEach((url, index) => { %>
-                 <tr>
+              <tr>
                 <td><%= index + 1 %></td>
                 <td><%= url.shortId %></td> 
-                <td><%= url.redirectURL %></td>
+                <td><a href="<%= url.redirectURL %>" target="_blank"><%= url.redirectURL %></a></td>
                 <td><%= url.visitHistory.length %></td>
-                </tr>
+              </tr>
             <% }) %>
           </tbody>
-         </table>
-        <% } %>
-      </div>
+        </table>
+      <% } %>
     </div>
-  </body>
+  </div>
+</body>
 </html>

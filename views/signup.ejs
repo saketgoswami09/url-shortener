@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>singup</title>
+  <style>
+      * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'gilroy', sans-serif;
+      padding: 20px;
+    }
+
+    .heading{
+      color: #cd58f0;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="heading">SignUp !</h1>
+  <form action="/user" method="post">
+    <label>Full name</label>
+    <input type="text" required name="name">
+    <label>email</label>
+    <input type="text" required name="email">
+    <label>password</label>
+    <input type="text" required name="password">
+
+    <button type="submit">Signup</button>
+  </form>
+</body>
+</html>
